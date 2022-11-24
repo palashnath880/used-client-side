@@ -8,7 +8,7 @@ import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 
 const Login = () => {
 
-    const { loginUser } = useContext(UserContext);
+    const { loginUser, loadUserData } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [cookies, setCookie] = useCookies(['used_access_token']);
     const [error, setError] = useState('');

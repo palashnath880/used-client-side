@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Loader from './components/Loader/Loader';
 import { UserContext } from './contexts/UserContextProvider/UserContextProvider';
 import Routes from './Router/Routes/Routes';
@@ -11,6 +12,7 @@ const App = () => {
   return (
     <>
       <Routes />
+      <Toaster />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import app from '../../firebase/__firebase.config';
+import { useCookies } from 'react-cookie';
 
 export const UserContext = createContext();
 
@@ -10,6 +11,7 @@ const UserContextProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [cookies] = useCookies(['used_access_token']);
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -25,15 +27,26 @@ const UserContextProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
+    const logOut = () => {
+        return signOut(auth);
+    }
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            if (currentUser !== null) {
+                const res = await fetch(`http://localhost:5000/users/${currentUser?.uid}`);
+                const data = await res.json();
+                setUser({ ...currentUser, ...data });
+                setLoading(false);
+            } else {
+                setUser(currentUser);
+                setLoading(false);
+            }
         });
         return () => unsubscribe();
     }, []);
 
-    const userInfo = { user, loading, signInWithGoogle, createUser, loginUser };
+    const userInfo = { user, loading, signInWithGoogle, createUser, loginUser, logOut };
     return (
         <UserContext.Provider value={userInfo}>
             {children}

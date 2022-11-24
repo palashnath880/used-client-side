@@ -1,10 +1,18 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Admin from '../../Layout/Admin/Admin';
 import Main from '../../Layout/Main/Main';
+import Seller from '../../Layout/Seller/Seller';
+import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
+import Category from '../../pages/AdminDashboard/Category/Category';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
+import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
+import MyProducts from '../../pages/sellerDashboard/MyProducts/MyProducts';
 import SignUp from '../../pages/Signup/SignUp';
+import AdminRoutes from '../AdminRoutes/AdminRoutes';
 import AuthRoutes from '../AuthRoutes/AuthRoutes';
+import SellerRoutes from '../SellerRoutes/SellerRoutes';
 
 const Routes = () => {
 
@@ -24,6 +32,38 @@ const Routes = () => {
                 {
                     path: '/signup',
                     element: <AuthRoutes><SignUp /></AuthRoutes>
+                }
+            ]
+        },
+        {
+            path: '/seller',
+            element: <Seller />,
+            children: [
+                {
+                    path: '/seller/my-products',
+                    element: <SellerRoutes><MyProducts /></SellerRoutes>
+                },
+                {
+                    path: '/seller/add-product',
+                    element: <SellerRoutes><AddProduct /></SellerRoutes>
+                }
+            ]
+        },
+        {
+            path: '/admin',
+            element: <AdminRoutes><Admin /></AdminRoutes>,
+            children: [
+                {
+                    path: '/admin/dashboard',
+                    element: '',
+                },
+                {
+                    path: '/admin/all-users',
+                    element: <AdminRoutes><AllUsers /></AdminRoutes>,
+                },
+                {
+                    path: '/admin/category',
+                    element: <AdminRoutes><Category /></AdminRoutes>,
                 }
             ]
         }
