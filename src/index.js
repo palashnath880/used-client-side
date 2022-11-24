@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import UserContextProvider from './contexts/UserContextProvider/UserContextProvider';
 import UsedContextProvider from './contexts/UsedContextProvider/UsedContextProvider';
+import { CookiesProvider } from 'react-cookie';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserContextProvider>
       <UsedContextProvider>
-        <App />
+        <CookiesProvider>
+          <App />
+        </CookiesProvider>
       </UsedContextProvider>
     </UserContextProvider>
   </React.StrictMode>

@@ -3,21 +3,49 @@ import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
     const { createUser } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [cookies, setCookie] = useCookies(['used_access_token']);
     const { handleSubmit, register, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
     const handleCreateUser = (data) => {
+        setError('');
         setLoading(true);
         createUser(data?.email, data?.password)
             .then(res => {
                 const user = res?.user;
+                axios.post('http://localhost:5000/users', {
+                    displayName: data?.name,
+                    email: user?.email,
+                    uid: user?.uid,
+                    photoURL: user?.photoURL,
+                    role: data?.user_role
+                })
+                    .then(() => {
+                        axios.post('http://localhost:5000/used-jwt', { uid: user?.uid })
+                            .then(result => {
+                                setLoading(false);
+                                if (result.data?.token) {
+                                    setCookie('used_access_token', result.data?.token);
+                                }
+                                navigate('/');
+                            })
+                    })
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                setLoading(false);
+                const errorCode = err.code;
+                if (errorCode === 'auth/email-already-in-use') {
+                    setError('Email already use.');
+                }
+            });
     }
 
     return (
