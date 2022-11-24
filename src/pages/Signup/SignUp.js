@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
@@ -126,6 +126,7 @@ const SignUp = () => {
                         </div>
                         <div className="divider">OR</div>
                         <SocialLogin />
+                        <p className='text-center mt-2'><small>Already Have An Account. Please <Link className='underline' to={'/login'}>Login</Link></small></p>
                     </form>
                 </div>
             </div>

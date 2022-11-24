@@ -4,6 +4,7 @@ import Main from '../../Layout/Main/Main';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import SignUp from '../../pages/Signup/SignUp';
+import AuthRoutes from '../AuthRoutes/AuthRoutes';
 
 const Routes = () => {
 
@@ -18,11 +19,11 @@ const Routes = () => {
                 },
                 {
                     path: '/login',
-                    element: <Login />
+                    element: <AuthRoutes><Login /></AuthRoutes>
                 },
                 {
                     path: '/signup',
-                    element: <SignUp />
+                    element: <AuthRoutes><SignUp /></AuthRoutes>
                 }
             ]
         }
