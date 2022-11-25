@@ -5,6 +5,7 @@ import Main from '../../Layout/Main/Main';
 import Seller from '../../Layout/Seller/Seller';
 import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
 import Category from '../../pages/AdminDashboard/Category/Category';
+import Advertise from '../../pages/Advertise/Advertise/Advertise';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
@@ -32,6 +33,10 @@ const Routes = () => {
                 {
                     path: '/signup',
                     element: <AuthRoutes><SignUp /></AuthRoutes>
+                },
+                {
+                    path: '/advertise',
+                    element: <Advertise />
                 }
             ]
         },

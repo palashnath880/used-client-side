@@ -6,17 +6,24 @@ import reportWebVitals from './reportWebVitals';
 import UserContextProvider from './contexts/UserContextProvider/UserContextProvider';
 import UsedContextProvider from './contexts/UsedContextProvider/UsedContextProvider';
 import { CookiesProvider } from 'react-cookie';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+const queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <UsedContextProvider>
-        <CookiesProvider>
-          <App />
-        </CookiesProvider>
-      </UsedContextProvider>
-    </UserContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <UserContextProvider>
+        <UsedContextProvider>
+          <CookiesProvider>
+            <App />
+          </CookiesProvider>
+        </UsedContextProvider>
+      </UserContextProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

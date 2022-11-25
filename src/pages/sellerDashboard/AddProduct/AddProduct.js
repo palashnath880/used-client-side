@@ -69,7 +69,7 @@ const AddProduct = () => {
 
     return (
         <div>
-            <h2 className='font-semibold text-2xl border-b pb-3'>Add Car For Sale</h2>
+            <h2 className='font-semibold text-2xl border-b pb-3'>Add Product For Sale</h2>
             <form onSubmit={handleSubmit(handleAddProduct)}>
                 <div className='grid grid-cols-2 gap-4'>
                     <div className="form-control w-full ">
@@ -173,6 +173,14 @@ const AddProduct = () => {
                             className="file-input file-input-bordered w-full"
                             {...register('image', { required: 'Select Image' })} />
                         {errors?.image && <small className='text-red-500'>{errors?.image?.message}</small>}
+                    </div>
+                </div>
+                <div className='mt-2'>
+                    <div className="form-control inline-block">
+                        <label className="label cursor-pointer gap-4">
+                            <input type="checkbox" className="checkbox" {...register('advertise')} />
+                            <span className="label-text">Advertise</span>
+                        </label>
                     </div>
                 </div>
                 <div className="form-control w-full mt-2 ">

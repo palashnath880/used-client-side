@@ -44,7 +44,7 @@ const UserContextProvider = ({ children }) => {
             }
         });
         return () => unsubscribe();
-    }, []);
+    }, [auth]);
 
     const userInfo = { user, loading, signInWithGoogle, createUser, loginUser, logOut };
     return (

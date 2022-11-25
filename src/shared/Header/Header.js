@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
@@ -26,8 +26,8 @@ const Header = () => {
                 <div className="flex-none">
                     <div className="">
                         <ul tabIndex={0} className="menu menu-horizontal px-2">
-                            <li className='mr-1'><Link>Home</Link></li>
-                            <li className='mr-1'><Link>About</Link></li>
+                            <li className='mr-1'><NavLink to='/'>Home</NavLink></li>
+                            <li className='mr-1'><NavLink to='/advertise'>Advertised</NavLink></li>
                             {user !== null && user?.role === 'Admin' && <li className='mr-1'><Link to={'/admin/dashboard'}>Dashboard</Link></li>}
                             {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/my-products'}>My Products</Link></li>}
                             {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/my-buyers'}>My Buyers</Link></li>}

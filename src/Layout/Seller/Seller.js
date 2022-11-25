@@ -1,22 +1,23 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import DashboardHeader from '../../shared/DashboardHeader/DashboardHeader';
 
 const Seller = () => {
     return (
         <>
-            <div className="drawer drawer-mobile">
+            <DashboardHeader />
+            <div className="drawer drawer-mobile py-10 px-5 h-auto">
                 <input id="sellerDrawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
-                    <label htmlFor="sellerDrawer" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                     <div className='px-5 py-5'>
                         <Outlet />
                     </div>
                 </div>
-                <div className="drawer-side border rounded-md">
+                <div className="drawer-side border rounded-md sticky top-0">
                     <label htmlFor="sellerDrawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-                        <li><Link to='/seller/my-products'>All Products</Link></li>
-                        <li><Link to='/seller/add-product'>Add Product</Link></li>
+                        <li className='mb-2'><NavLink to='/seller/my-products'>All Products</NavLink></li>
+                        <li className='mb-2'><NavLink to='/seller/add-product'>Add Product</NavLink></li>
                     </ul>
                 </div>
             </div>

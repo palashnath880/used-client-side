@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import AdminHeader from '../../shared/AdminHeader/AdminHeader';
+import DashboardHeader from '../../shared/DashboardHeader/DashboardHeader';
 
 const Admin = () => {
 
     return (
         <>
-            <AdminHeader />
+            <DashboardHeader />
             <div className="drawer drawer-mobile py-10 px-5">
                 <input id="adminDrawer" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">

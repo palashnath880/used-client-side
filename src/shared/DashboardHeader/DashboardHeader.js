@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
+import { Bars3Icon } from '@heroicons/react/24/outline';
 
-const AdminHeader = () => {
+const DashboardHeader = () => {
 
     const { user, logOut } = useContext(UserContext);
     const [a, b, removeCookie] = useCookies(['used_access_token']);
@@ -20,8 +21,13 @@ const AdminHeader = () => {
     return (
         <header className='shadow-lg '>
             <div className="navbar">
+                <div className='flex-1 lg:hidden'>
+                    <label htmlFor="sellerDrawer" className=" cursor-pointer drawer-button lg:hidden">
+                        <Bars3Icon className='w-6 h-6' />
+                    </label>
+                </div>
                 <div className="flex-1">
-                    <Link className="btn btn-ghost normal-case text-xl" to={'/'}>Used</Link>
+                    <Link className="normal-case text-xl" to={'/'}>Used</Link>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
@@ -47,4 +53,4 @@ const AdminHeader = () => {
     );
 }
 
-export default AdminHeader;
+export default DashboardHeader;
