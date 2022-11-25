@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AdminHeader from '../../shared/AdminHeader/AdminHeader';
 
 const Admin = () => {
 
-    const queryClient = new QueryClient();
-
     return (
-        <QueryClientProvider client={queryClient}>
+        <>
             <AdminHeader />
             <div className="drawer drawer-mobile py-10 px-5">
                 <input id="adminDrawer" type="checkbox" className="drawer-toggle" />
@@ -27,7 +24,7 @@ const Admin = () => {
                     </ul>
                 </div>
             </div>
-        </QueryClientProvider>
+        </>
     );
 }
 
