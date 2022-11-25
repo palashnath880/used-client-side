@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie';
 import { format } from 'date-fns'
 import { UserContext } from '../../../contexts/UserContextProvider/UserContextProvider';
 import { UsedContext } from '../../../contexts/UsedContextProvider/UsedContextProvider';
+import toast from 'react-hot-toast';
 
 const Advertise = () => {
 
@@ -36,6 +37,7 @@ const Advertise = () => {
         })
             .then(res => {
                 if (res.data?.acknowledged) {
+                    toast.success('Product Added To Wish List');
                     wishListRefetch();
                 }
             })

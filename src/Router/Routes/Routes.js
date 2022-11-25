@@ -11,8 +11,10 @@ import Login from '../../pages/Login/Login';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
 import MyProducts from '../../pages/sellerDashboard/MyProducts/MyProducts';
 import SignUp from '../../pages/Signup/SignUp';
+import WishList from '../../pages/WishList/WishList';
 import AdminRoutes from '../AdminRoutes/AdminRoutes';
 import AuthRoutes from '../AuthRoutes/AuthRoutes';
+import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import SellerRoutes from '../SellerRoutes/SellerRoutes';
 
 const Routes = () => {
@@ -37,6 +39,10 @@ const Routes = () => {
                 {
                     path: '/advertise',
                     element: <Advertise />
+                },
+                {
+                    path: '/wishlist',
+                    element: <PrivateRoutes><WishList /></PrivateRoutes>
                 }
             ]
         },

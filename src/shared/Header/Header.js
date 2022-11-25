@@ -3,10 +3,12 @@ import { Link, NavLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import { HeartIcon } from '@heroicons/react/24/outline';
+import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvider';
 
 const Header = () => {
     const { user, logOut } = useContext(UserContext);
+    const { wishListProducts } = useContext(UsedContext);
     const [cookies, b, removeCookie] = useCookies(['used_access_token']);
 
     const handleLogOut = () => {
@@ -16,6 +18,8 @@ const Header = () => {
             })
             .catch(err => console.error(err));
     }
+
+    const totalAmount = wishListProducts.reduce((prev, next) => prev + parseInt(next?.product?.price), 0);
 
     return (
         <header className='shadow-lg '>
@@ -37,15 +41,15 @@ const Header = () => {
                         <label tabIndex={0} className="btn btn-ghost btn-circle">
                             <div className="indicator">
                                 <HeartIcon className='w-6 h-6' />
-                                <span className="badge badge-sm indicator-item">8</span>
+                                <span className="badge badge-sm indicator-item">{wishListProducts.length}</span>
                             </div>
                         </label>
                         <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                             <div className="card-body">
-                                <span className="font-bold text-lg">8 Items</span>
-                                <span className="text-info">Subtotal: $999</span>
+                                <span className="font-bold text-lg">{wishListProducts.length} {wishListProducts.length > 1 ? 'Items' : 'Item'}</span>
+                                <span className="text-info">Subtotal: &#2547;{totalAmount}</span>
                                 <div className="card-actions">
-                                    <button className="btn btn-primary btn-block">View cart</button>
+                                    <Link className="btn btn-primary btn-block capitalize" to='/wishlist'>View Wish List</Link>
                                 </div>
                             </div>
                         </div>
