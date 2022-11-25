@@ -17,11 +17,11 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <UserContextProvider>
-        <UsedContextProvider>
-          <CookiesProvider>
+        <CookiesProvider>
+          <UsedContextProvider>
             <App />
-          </CookiesProvider>
-        </UsedContextProvider>
+          </UsedContextProvider>
+        </CookiesProvider>
       </UserContextProvider>
     </QueryClientProvider>
   </React.StrictMode>

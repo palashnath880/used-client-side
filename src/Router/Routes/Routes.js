@@ -6,6 +6,7 @@ import Seller from '../../Layout/Seller/Seller';
 import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
 import Category from '../../pages/AdminDashboard/Category/Category';
 import Advertise from '../../pages/Advertise/Advertise/Advertise';
+import CheckOut from '../../pages/CheckOut/CheckOut';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
@@ -43,6 +44,10 @@ const Routes = () => {
                 {
                     path: '/wishlist',
                     element: <PrivateRoutes><WishList /></PrivateRoutes>
+                },
+                {
+                    path: '/checkout/:id',
+                    element: <PrivateRoutes><CheckOut /></PrivateRoutes>
                 }
             ]
         },
