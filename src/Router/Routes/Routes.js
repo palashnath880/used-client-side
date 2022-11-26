@@ -10,6 +10,7 @@ import CheckOut from '../../pages/CheckOut/CheckOut';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import MyOrders from '../../pages/MyOrders/MyOrders';
+import NotFound from '../../pages/NotFound/NotFound';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
 import MyProducts from '../../pages/sellerDashboard/MyProducts/MyProducts';
 import SignUp from '../../pages/Signup/SignUp';
@@ -87,6 +88,10 @@ const Routes = () => {
                     element: <AdminRoutes><Category /></AdminRoutes>,
                 }
             ]
+        },
+        {
+            path: '*',
+            element: <NotFound />
         }
     ]);
 

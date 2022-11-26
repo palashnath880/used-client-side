@@ -5,7 +5,7 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CheckoutForm from '../../components/CheckoutForm/CheckoutForm';
 
-const stripePromise = loadStripe('pk_test_51M85apBKG8GcowxMXabwV1me45obfTE4rT4annZhuq1r1ck1k6jkk4R8OsQSt0f7znjg2Vr5osjzb6dYIzvVMZ1x00SbGQAAmi');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const CheckOut = () => {
 
