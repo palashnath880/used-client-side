@@ -32,6 +32,7 @@ const Header = () => {
                         <ul tabIndex={0} className="menu menu-horizontal px-2">
                             <li className='mr-1'><NavLink to='/'>Home</NavLink></li>
                             <li className='mr-1'><NavLink to='/advertise'>Advertised</NavLink></li>
+                            <li className='mr-1'><NavLink to='/blogs'>Blogs</NavLink></li>
                             {user !== null && <li className='mr-1'><NavLink to='/my-orders'>My Orders</NavLink></li>}
                             {user !== null && user?.role === 'Admin' && <li className='mr-1'><Link to={'/admin/dashboard'}>Dashboard</Link></li>}
                             {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/my-products'}>My Products</Link></li>}

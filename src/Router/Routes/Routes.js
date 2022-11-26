@@ -6,6 +6,7 @@ import Seller from '../../Layout/Seller/Seller';
 import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
 import Category from '../../pages/AdminDashboard/Category/Category';
 import Advertise from '../../pages/Advertise/Advertise/Advertise';
+import Blogs from '../../pages/Blogs/Blogs';
 import CheckOut from '../../pages/CheckOut/CheckOut';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
@@ -54,6 +55,10 @@ const Routes = () => {
                 {
                     path: '/my-orders',
                     element: <PrivateRoutes><MyOrders /></PrivateRoutes>
+                },
+                {
+                    path: '/blogs',
+                    element: <Blogs />
                 }
             ]
         },
