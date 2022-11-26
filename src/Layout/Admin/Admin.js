@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import DashboardHeader from '../../shared/DashboardHeader/DashboardHeader';
 
 const Admin = () => {
@@ -18,9 +18,9 @@ const Admin = () => {
                 <div className="drawer-side border rounded-md">
                     <label htmlFor="adminDrawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 text-base-content">
-                        <li><Link to='/admin/all-users'>All Users</Link></li>
-                        <li><Link to='/admin/category'>Category</Link></li>
-                        <li><Link to='/admin/all-product'>All Product</Link></li>
+                        <li><NavLink to='/admin/all-users'>All Users</NavLink></li>
+                        <li><NavLink to='/admin/category'>Category</NavLink></li>
+                        <li><NavLink to='/admin/all-product'>All Product</NavLink></li>
                     </ul>
                 </div>
             </div>
