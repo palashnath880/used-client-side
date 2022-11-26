@@ -18,21 +18,21 @@ const SocialLogin = () => {
         signInWithGoogle()
             .then(res => {
                 const user = res?.user;
-                axios.post('http://localhost:5000/users', {
-                    displayName: user?.displayName,
-                    email: user?.email,
-                    uid: user?.uid,
-                    photoURL: user?.photoURL,
-                    role: 'Buyer'
-                })
-                    .then(() => {
-                        axios.post('http://localhost:5000/used-jwt', { uid: user?.uid })
-                            .then(result => {
-                                if (result.data?.token) {
-                                    setCookie('used_access_token', result.data?.token);
-                                }
-                                navigate(pathName, { replace: true });
+                axios.post('http://localhost:5000/used-jwt', { uid: user?.uid })
+                    .then(result => {
+                        if (result.data?.token) {
+                            setCookie('used_access_token', result.data?.token);
+                            axios.post('http://localhost:5000/users', {
+                                displayName: user?.displayName,
+                                email: user?.email,
+                                uid: user?.uid,
+                                photoURL: user?.photoURL,
+                                role: 'Buyer'
                             })
+                                .then(() => {
+                                    navigate(pathName, { replace: true });
+                                })
+                        }
                     })
             })
             .catch(err => console.error(err));

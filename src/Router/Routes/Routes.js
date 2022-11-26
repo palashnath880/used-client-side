@@ -9,6 +9,7 @@ import Advertise from '../../pages/Advertise/Advertise/Advertise';
 import CheckOut from '../../pages/CheckOut/CheckOut';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
+import MyOrders from '../../pages/MyOrders/MyOrders';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
 import MyProducts from '../../pages/sellerDashboard/MyProducts/MyProducts';
 import SignUp from '../../pages/Signup/SignUp';
@@ -48,6 +49,10 @@ const Routes = () => {
                 {
                     path: '/checkout/:id',
                     element: <PrivateRoutes><CheckOut /></PrivateRoutes>
+                },
+                {
+                    path: '/my-orders',
+                    element: <PrivateRoutes><MyOrders /></PrivateRoutes>
                 }
             ]
         },

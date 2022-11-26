@@ -16,13 +16,13 @@ const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <UserContextProvider>
-        <CookiesProvider>
+      <CookiesProvider>
+        <UserContextProvider>
           <UsedContextProvider>
             <App />
           </UsedContextProvider>
-        </CookiesProvider>
-      </UserContextProvider>
+        </UserContextProvider>
+      </CookiesProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

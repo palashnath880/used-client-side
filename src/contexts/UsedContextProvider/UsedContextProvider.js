@@ -2,7 +2,6 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { UserContext } from '../UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
-import Loader from '../../components/Loader/Loader';
 
 export const UsedContext = createContext();
 
@@ -14,6 +13,9 @@ const UsedContextProvider = ({ children }) => {
     const { data: wishListProducts = [], refetch: wishListRefetch } = useQuery({
         queryKey: ['wishListProducts', user],
         queryFn: async () => {
+            if (!user?.uid) {
+                return [];
+            }
             const res = await fetch(`http://localhost:5000/wishlist/${user?.uid}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,

@@ -59,7 +59,7 @@ const WishList = () => {
                             </div>
                         </div>
                     )
-                    : <p className='text-center font-semibold py-3 rounded-md bg-red-100 text-red-500'>Empty</p>
+                    : <p className='text-center font-semibold py-3 rounded-md bg-red-100 text-red-500'>Empty Wish List</p>
                 }
             </div>
         </div >

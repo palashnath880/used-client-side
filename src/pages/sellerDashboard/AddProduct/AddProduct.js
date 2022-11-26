@@ -187,8 +187,13 @@ const AddProduct = () => {
                     <label className="label" htmlFor='description'>
                         <span className="label-text">Description</span>
                     </label>
-                    <textarea className="textarea textarea-bordered" id='description' placeholder="Bio"></textarea>
-                    <small></small>
+                    <textarea
+                        className="textarea textarea-bordered"
+                        id='description'
+                        placeholder="Description"
+                        {...register('description', { required: 'Write Your Product Details And Used Experience.' })}
+                    ></textarea>
+                    {errors?.description && <small className='text-red-500'>{errors?.description?.message}</small>}
                 </div>
                 {loading && <div className="text-center py-5">
                     <div role="status">
