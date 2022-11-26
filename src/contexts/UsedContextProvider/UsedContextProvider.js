@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { UserContext } from '../UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
+import Loader from '../../components/Loader/Loader';
 
 export const UsedContext = createContext();
 

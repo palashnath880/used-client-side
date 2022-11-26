@@ -19,7 +19,7 @@ const Header = () => {
             .catch(err => console.error(err));
     }
 
-    const totalAmount = wishListProducts.reduce((prev, next) => prev + parseInt(next?.product?.price), 0);
+    const totalAmount = Array.isArray(wishListProducts) ? wishListProducts.reduce((prev, next) => prev + parseInt(next?.product?.price), 0) : 0;
 
     return (
         <header className='shadow-lg '>
@@ -41,7 +41,7 @@ const Header = () => {
                         <label tabIndex={0} className="btn btn-ghost btn-circle">
                             <div className="indicator">
                                 <HeartIcon className='w-6 h-6' />
-                                <span className="badge badge-sm indicator-item">{wishListProducts.length}</span>
+                                <span className="badge badge-sm indicator-item">{wishListProducts.length || 0}</span>
                             </div>
                         </label>
                         <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
