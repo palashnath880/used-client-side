@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
 import Loader from '../../../components/Loader/Loader';
-import AdvertiseProductItem from '../AdvertiseProductItem/AdvertiseProductItem';
 import { useCookies } from 'react-cookie';
 import { format } from 'date-fns'
 import { UserContext } from '../../../contexts/UserContextProvider/UserContextProvider';
 import { UsedContext } from '../../../contexts/UsedContextProvider/UsedContextProvider';
 import toast from 'react-hot-toast';
+import ProductItem from '../../../shared/ProductItem/ProductItem';
 
 const Advertise = () => {
 
@@ -55,7 +55,7 @@ const Advertise = () => {
                 {advertiseProducts.length <= 0 && <p className='text-center font-semibold py-3 rounded-md bg-red-100 text-red-500'>No Product Found</p>}
                 <div className='grid grid-cols-3 gap-4'>
                     {advertiseProducts.map(product =>
-                        <AdvertiseProductItem
+                        <ProductItem
                             key={product?._id}
                             product={product}
                             handleWishList={handleWishList}

@@ -8,10 +8,13 @@ import Category from '../../pages/AdminDashboard/Category/Category';
 import Advertise from '../../pages/Advertise/Advertise/Advertise';
 import Blogs from '../../pages/Blogs/Blogs';
 import CheckOut from '../../pages/CheckOut/CheckOut';
+import Contact from '../../pages/Contact/Contact';
+import FAQ from '../../pages/FAQ/FAQ';
 import Home from '../../pages/Home/Home/Home';
 import Login from '../../pages/Login/Login';
 import MyOrders from '../../pages/MyOrders/MyOrders';
 import NotFound from '../../pages/NotFound/NotFound';
+import PrivacyPolicy from '../../pages/PrivacyPolicy/PrivacyPolicy';
 import AddProduct from '../../pages/sellerDashboard/AddProduct/AddProduct';
 import MyProducts from '../../pages/sellerDashboard/MyProducts/MyProducts';
 import SignUp from '../../pages/Signup/SignUp';
@@ -59,6 +62,19 @@ const Routes = () => {
                 {
                     path: '/blogs',
                     element: <Blogs />
+                },
+                {
+                    path: '/faq',
+                    element: <FAQ />
+                },
+                {
+                    path: '/contact-us',
+                    element: <Contact />
+                },
+                {
+                    path: '/privacy-policy',
+                    element: <PrivacyPolicy />
+
                 }
             ]
         },

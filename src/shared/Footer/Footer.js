@@ -37,12 +37,12 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to='/contact' className='pb-1 mb-1 border-b duration-200 border-transparent hover:border-slate-400 flex items-center text-slate-300 hover:text-slate-100'>
+                                    <Link to='/contact-us' className='pb-1 mb-1 border-b duration-200 border-transparent hover:border-slate-400 flex items-center text-slate-300 hover:text-slate-100'>
                                         <ChevronRightIcon className='h-4 w-4 mr-2' />Contact Us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to='privacy-policy' className='pb-1 mb-1 border-b duration-200 border-transparent hover:border-slate-400 flex items-center text-slate-300 hover:text-slate-100'>
+                                    <Link to='/privacy-policy' className='pb-1 mb-1 border-b duration-200 border-transparent hover:border-slate-400 flex items-center text-slate-300 hover:text-slate-100'>
                                         <ChevronRightIcon className='h-4 w-4 mr-2' />Privacy & Policy
                                     </Link>
                                 </li>
