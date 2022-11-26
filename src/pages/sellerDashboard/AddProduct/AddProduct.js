@@ -1,17 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { forwardRef, useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../contexts/UserContextProvider/UserContextProvider';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import Datepicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddProduct = () => {
 
     const { handleSubmit, register, formState: { errors }, reset } = useForm();
     const [loading, setLoading] = useState(false);
+    const [selectedYear, setSelectedYear] = useState(new Date());
     const [cookies] = useCookies(['used_access_token']);
     const { user, logOut } = useContext(UserContext);
     const location = ['Dhaka', 'Chittagong', 'Borishal', 'Cumilla', 'Feni', 'Pabna', 'Noakhali'];
@@ -22,7 +25,7 @@ const AddProduct = () => {
     const { data: categories = [] } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/category`);
+            const res = await fetch(`http://localhost:5000/categories`);
             const data = await res.json();
             return data;
         }
@@ -35,6 +38,7 @@ const AddProduct = () => {
         formData.append('image', image);
 
         data.authorID = user?.uid;
+        data.purchaseYear = `${format(selectedYear, "PP")}`;
         data.date = `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`;
         setLoading(true);
         axios.post(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, formData)
@@ -100,17 +104,44 @@ const AddProduct = () => {
                         {errors?.category && <small className='text-red-500'>{errors?.category?.message}</small>}
                     </div>
                     <div className="form-control w-full ">
-                        <label className="label" htmlFor='price'>
-                            <span className="label-text">Price</span>
+                        <label className="label" htmlFor='category'>
+                            <span className="label-text">Brand</span>
+                        </label>
+                        <select
+                            className="select select-bordered w-full"
+                            name='category'
+                            {...register('brand', { required: 'Select Brand' })}
+                        >
+                            <option value="">Select Brand</option>
+                            {categories.map((item, index) => <option key={index} value={item?.category}>{item?.category}</option>)}
+                        </select>
+                        {errors?.brand && <small className='text-red-500'>{errors?.brand?.message}</small>}
+                    </div>
+                    <div className="form-control w-full ">
+                        <label className="label" htmlFor='originalPrice'>
+                            <span className="label-text">Original Price</span>
                         </label>
                         <input
                             type="text"
                             placeholder="Price"
-                            id='price'
+                            id='originalPrice'
                             className="input input-bordered w-full"
-                            {...register('price', { required: 'Enter Product Price' })}
+                            {...register('originalPrice', { required: 'Enter Original Product Price' })}
                         />
-                        {errors?.price && <small className='text-red-500'>{errors?.price?.message}</small>}
+                        {errors?.originalPrice && <small className='text-red-500'>{errors?.originalPrice?.message}</small>}
+                    </div>
+                    <div className="form-control w-full ">
+                        <label className="label" htmlFor='sellPrice'>
+                            <span className="label-text">Sell Price</span>
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Sell Price"
+                            id='sellPrice'
+                            className="input input-bordered w-full"
+                            {...register('sellPrice', { required: 'Enter Sell Product Price' })}
+                        />
+                        {errors?.sellPrice && <small className='text-red-500'>{errors?.sellPrice?.message}</small>}
                     </div>
                     <div className="form-control w-full ">
                         <label className="label" htmlFor='condition'>
@@ -138,18 +169,18 @@ const AddProduct = () => {
                         {errors?.location && <small className='text-red-500'>{errors?.location?.message}</small>}
                     </div>
                     <div className="form-control w-full ">
-                        <label className="label" htmlFor='used_month'>
-                            <span className="label-text">Used Month</span>
+                        <label className="label" htmlFor='purchaseYear'>
+                            <span className="label-text">Year of Purchase</span>
                         </label>
-                        <input
-                            type="number"
-                            min='1'
-                            placeholder="Month"
-                            id='used_month'
+                        <Datepicker
+                            selected={selectedYear}
+                            onChange={(date) => setSelectedYear(date)}
+                            timeFormat="MM/yyyy"
+                            showMonthYearPicker
+                            showFullMonthYearPicker
+                            maxDate={new Date()}
                             className="input input-bordered w-full"
-                            {...register('used_month', { required: 'Enter Used Month' })}
                         />
-                        {errors?.used_month && <small className='text-red-500'>{errors?.used_month?.message}</small>}
                     </div>
                     <div className="form-control w-full ">
                         <label className="label" htmlFor='mobile'>
@@ -173,14 +204,6 @@ const AddProduct = () => {
                             className="file-input file-input-bordered w-full"
                             {...register('image', { required: 'Select Image' })} />
                         {errors?.image && <small className='text-red-500'>{errors?.image?.message}</small>}
-                    </div>
-                </div>
-                <div className='mt-2'>
-                    <div className="form-control inline-block">
-                        <label className="label cursor-pointer gap-4">
-                            <input type="checkbox" className="checkbox" {...register('advertise')} />
-                            <span className="label-text">Advertise</span>
-                        </label>
                     </div>
                 </div>
                 <div className="form-control w-full mt-2 ">

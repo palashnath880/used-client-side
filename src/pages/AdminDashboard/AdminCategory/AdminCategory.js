@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
 
-const Category = () => {
+const AdminCategory = () => {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -164,4 +164,4 @@ const Category = () => {
     );
 }
 
-export default Category;
+export default AdminCategory;

@@ -13,7 +13,7 @@ const UsedContextProvider = ({ children }) => {
     const { data: wishListProducts = [], refetch: wishListRefetch } = useQuery({
         queryKey: ['wishListProducts', user],
         queryFn: async () => {
-            if (!user?.uid) {
+            if (!user?.uid || !cookies?.used_access_token) {
                 return [];
             }
             const res = await fetch(`http://localhost:5000/wishlist/${user?.uid}`, {

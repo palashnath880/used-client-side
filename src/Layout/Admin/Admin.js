@@ -18,9 +18,10 @@ const Admin = () => {
                 <div className="drawer-side border rounded-md">
                     <label htmlFor="adminDrawer" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 text-base-content">
-                        <li><NavLink to='/admin/all-users'>All Users</NavLink></li>
+                        <li><NavLink to='/admin/users'>All Users</NavLink></li>
                         <li><NavLink to='/admin/category'>Category</NavLink></li>
-                        <li><NavLink to='/admin/all-product'>All Product</NavLink></li>
+                        <li><NavLink to='/admin/brand'>Brand</NavLink></li>
+                        <li><NavLink to='/admin/products'>All Product</NavLink></li>
                     </ul>
                 </div>
             </div>

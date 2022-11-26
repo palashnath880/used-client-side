@@ -4,7 +4,7 @@ import Admin from '../../Layout/Admin/Admin';
 import Main from '../../Layout/Main/Main';
 import Seller from '../../Layout/Seller/Seller';
 import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
-import Category from '../../pages/AdminDashboard/Category/Category';
+import Category from '../../pages/Category/Category';
 import Advertise from '../../pages/Advertise/Advertise/Advertise';
 import Blogs from '../../pages/Blogs/Blogs';
 import CheckOut from '../../pages/CheckOut/CheckOut';
@@ -23,6 +23,8 @@ import AdminRoutes from '../AdminRoutes/AdminRoutes';
 import AuthRoutes from '../AuthRoutes/AuthRoutes';
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import SellerRoutes from '../SellerRoutes/SellerRoutes';
+import Brand from '../../pages/AdminDashboard/Brand/Brand';
+import AdminCategory from '../../pages/AdminDashboard/AdminCategory/AdminCategory';
 
 const Routes = () => {
 
@@ -75,6 +77,11 @@ const Routes = () => {
                     path: '/privacy-policy',
                     element: <PrivacyPolicy />
 
+                },
+                {
+                    path: '/category/:categoryName',
+                    element: <Category />
+
                 }
             ]
         },
@@ -101,12 +108,16 @@ const Routes = () => {
                     element: '',
                 },
                 {
-                    path: '/admin/all-users',
+                    path: '/admin/users',
                     element: <AdminRoutes><AllUsers /></AdminRoutes>,
                 },
                 {
                     path: '/admin/category',
-                    element: <AdminRoutes><Category /></AdminRoutes>,
+                    element: <AdminRoutes><AdminCategory /></AdminRoutes>,
+                },
+                {
+                    path: '/admin/brand',
+                    element: <AdminRoutes><Brand /></AdminRoutes>,
                 }
             ]
         },
