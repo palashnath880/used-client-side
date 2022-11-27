@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
+import logo from '../../images/logo.png';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 
 const DashboardHeader = () => {
@@ -20,14 +21,16 @@ const DashboardHeader = () => {
 
     return (
         <header className='shadow-lg '>
-            <div className="navbar">
+            <div className="navbar container mx-auto">
                 <div className='flex-1 lg:hidden'>
                     <label htmlFor="sellerDrawer" className=" cursor-pointer drawer-button lg:hidden">
                         <Bars3Icon className='w-6 h-6' />
                     </label>
                 </div>
                 <div className="flex-1">
-                    <Link className="normal-case text-xl" to={'/'}>Used</Link>
+                    <Link to={'/'}>
+                        <img className='w-24' src={logo} alt='Logo' />
+                    </Link>
                 </div>
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">

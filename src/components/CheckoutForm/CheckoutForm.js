@@ -72,7 +72,7 @@ const CheckoutForm = ({ checkoutProduct }) => {
                 customer_id: user?.uid,
                 date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
             }
-            axios.post(`http://localhost:5000/orders`, orders)
+            axios.post(`https://used-server.vercel.app/orders`, orders)
                 .then(res => {
                     if (res?.data?.acknowledged) {
                         toast.success('Your Payment Successfully.');
@@ -88,7 +88,7 @@ const CheckoutForm = ({ checkoutProduct }) => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://used-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ price: 100 }),

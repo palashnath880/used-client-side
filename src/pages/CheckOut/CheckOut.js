@@ -14,7 +14,7 @@ const CheckOut = () => {
     const { data: checkoutProduct } = useQuery({
         queryKey: ['checkoutProduct'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/product/${params?.id}`);
+            const res = await fetch(`https://used-server.vercel.app/product/${params?.id}`);
             const data = await res.json();
             return data;
         }

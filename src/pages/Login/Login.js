@@ -24,7 +24,7 @@ const Login = () => {
         loginUser(data?.email, data?.password)
             .then(res => {
                 const user = res?.user;
-                axios.post('http://localhost:5000/used-jwt', { uid: user?.uid })
+                axios.post('https://used-server.vercel.app/used-jwt', { uid: user?.uid })
                     .then(result => {
                         setLoading(false);
                         if (result.data?.token) {

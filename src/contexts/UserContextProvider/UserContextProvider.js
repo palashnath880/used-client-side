@@ -33,7 +33,7 @@ const UserContextProvider = ({ children }) => {
     }
 
     const createJWT = (uid) => {
-        axios.post('http://localhost:5000/used-jwt', { uid })
+        axios.post('https://used-server.vercel.app/used-jwt', { uid })
             .then(res => {
                 if (res.data?.token) {
                     setCookie('used_access_token', res.data?.token);
@@ -45,7 +45,7 @@ const UserContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser !== null) {
-                const res = await fetch(`http://localhost:5000/users/${currentUser?.uid}`);
+                const res = await fetch(`https://used-server.vercel.app/users/${currentUser?.uid}`);
                 const data = await res.json();
                 setUser({ ...currentUser, ...data });
                 createJWT(currentUser?.uid);

@@ -3,12 +3,12 @@ import React from 'react';
 const Blogs = () => {
     return (
         <div className='container mx-auto px-5 py-10'>
-            <h1 className='text-2xl border-b pb-3 pl-3 font-semibold'>Blogs</h1>
+            <h1 className='text-2xl border-b pb-3 text-center pl-3 font-semibold'>Blogs</h1>
             <div className='mt-5'>
                 <div className='w-full lg:w-9/12 lg:mx-auto'>
                     <div className='mb-3 shadow-lg p-3 rounded-md border border-gray-200'>
                         <h2 className='font-semibold text-xl'> What are the different ways to manage a state in a React application?</h2>
-                        <p className='pl-2 mt-1'>
+                        <article className='pl-2 mt-1'>
                             Different ways to handle state in React applications. In React apps, there are at least four ways to handle the state.
                             <ul className='list-inside list-decimal'>
                                 <li>Local State</li>
@@ -16,7 +16,7 @@ const Blogs = () => {
                                 <li>Server State</li>
                                 <li>URL State</li>
                             </ul>
-                        </p>
+                        </article>
                     </div>
                     <div className='mb-3 shadow-lg p-3 rounded-md border border-gray-200'>
                         <h2 className='font-semibold text-xl'>How does prototypical inheritance work?</h2>

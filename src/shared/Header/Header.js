@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvider';
+import logo from '../../images/logo.png';
 
 const Header = () => {
     const { user, logOut } = useContext(UserContext);
@@ -23,20 +24,22 @@ const Header = () => {
 
     return (
         <header className='shadow-lg '>
-            <div className="navbar">
+            <div className="navbar container mx-auto">
                 <div className="flex-1">
-                    <Link className="btn btn-ghost normal-case text-xl" to={'/'}>Used</Link>
+                    <Link className="" to={'/'}>
+                        <img className='w-24' src={logo} alt='Logo' />
+                    </Link>
                 </div>
                 <div className="flex-none">
                     <div className="">
                         <ul tabIndex={0} className="menu menu-horizontal px-2">
                             <li className='mr-1'><NavLink to='/'>Home</NavLink></li>
+                            <li className='mr-1'><NavLink to='/cars'>Cars</NavLink></li>
                             <li className='mr-1'><NavLink to='/advertise'>Advertised</NavLink></li>
                             <li className='mr-1'><NavLink to='/blogs'>Blogs</NavLink></li>
                             {user !== null && <li className='mr-1'><NavLink to='/my-orders'>My Orders</NavLink></li>}
                             {user !== null && user?.role === 'Admin' && <li className='mr-1'><Link to={'/admin/dashboard'}>Dashboard</Link></li>}
-                            {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/my-products'}>My Products</Link></li>}
-                            {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/my-buyers'}>My Buyers</Link></li>}
+                            {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/dashboard'}>Dashboard</Link></li>}
                         </ul>
                     </div>
                     <div className="dropdown dropdown-end mr-2">

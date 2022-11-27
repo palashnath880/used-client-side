@@ -25,6 +25,9 @@ import PrivateRoutes from '../PrivateRoutes/PrivateRoutes';
 import SellerRoutes from '../SellerRoutes/SellerRoutes';
 import Brand from '../../pages/AdminDashboard/Brand/Brand';
 import AdminCategory from '../../pages/AdminDashboard/AdminCategory/AdminCategory';
+import SellerDashboard from '../../pages/sellerDashboard/SellerDashboard/SellerDashboard';
+import ReportProducts from '../../pages/AdminDashboard/ReportProducts/ReportProducts';
+import Cars from '../../pages/Cars/Cars';
 
 const Routes = () => {
 
@@ -82,13 +85,22 @@ const Routes = () => {
                     path: '/category/:categoryName',
                     element: <Category />
 
+                },
+                {
+                    path: '/cars',
+                    element: <Cars />
+
                 }
             ]
         },
         {
             path: '/seller',
-            element: <Seller />,
+            element: <SellerRoutes><Seller /></SellerRoutes>,
             children: [
+                {
+                    path: '/seller/dashboard',
+                    element: <SellerRoutes><SellerDashboard /></SellerRoutes>
+                },
                 {
                     path: '/seller/my-products',
                     element: <SellerRoutes><MyProducts /></SellerRoutes>
@@ -118,6 +130,10 @@ const Routes = () => {
                 {
                     path: '/admin/brand',
                     element: <AdminRoutes><Brand /></AdminRoutes>,
+                },
+                {
+                    path: '/admin/report-products',
+                    element: <AdminRoutes><ReportProducts /></AdminRoutes>,
                 }
             ]
         },

@@ -7,20 +7,21 @@ import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvi
 const ProductItem = ({ product, handleWishList }) => {
 
     const { wishListProducts } = useContext(UsedContext);
-    const { _id, image, product_name, category, condition, price, author, location } = product;
+    const { _id, image, product_name, category, brand, condition, originalPrice, sellPrice, author, location } = product;
 
     const findWishListProduct = wishListProducts.find(pro => pro.productID == _id);
 
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card bg-base-100 shadow-xl">
             <figure><img src={image} alt="Shoes" /></figure>
             <div className="card-body px-3 py-4">
                 <h2 className="card-title">
                     {product_name}
                 </h2>
                 <p className='text-lg'>
-                    <span className='font-semibold'>TK </span>
-                    {price}
+                    <span className='font-semibold'>$ </span>
+                    <span className='font-semibold' title='Sell Price'>{sellPrice}/</span>
+                    <small title='Purchase Price'>{originalPrice}</small>
                 </p>
                 <p className='flex items-center'>
                     Sell By {author?.displayName}
@@ -28,6 +29,7 @@ const ProductItem = ({ product, handleWishList }) => {
                 </p>
                 <div>
                     <div className="badge badge-outline mr-1">{category}</div>
+                    <div className="badge badge-outline mr-1">{brand}</div>
                     <div className="badge badge-outline mr-1">{condition}</div>
                     <div className="badge badge-outline mr-1">{location}</div>
                 </div>

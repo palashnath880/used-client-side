@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Datepicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { UsedContext } from '../../../contexts/UsedContextProvider/UsedContextProvider';
 
 const AddProduct = () => {
 
@@ -21,11 +22,12 @@ const AddProduct = () => {
     const imgbbKey = process.env.REACT_APP_IMGBB_KEY;
 
     const navigate = useNavigate();
+    const { categories } = useContext(UsedContext);
 
-    const { data: categories = [] } = useQuery({
-        queryKey: ['category'],
+    const { data: brands = [] } = useQuery({
+        queryKey: ['brands'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/categories`);
+            const res = await fetch(`https://used-server.vercel.app/brand`);
             const data = await res.json();
             return data;
         }
@@ -45,7 +47,7 @@ const AddProduct = () => {
             .then(res => {
                 if (res.data?.success) {
                     data.image = res?.data?.data?.url;
-                    axios.post(`http://localhost:5000/product`, data, {
+                    axios.post(`https://used-server.vercel.app/product`, data, {
                         headers: {
                             authorization: `bearer ${cookies?.used_access_token}`,
                         }
@@ -55,6 +57,7 @@ const AddProduct = () => {
                             if (response.data?.acknowledged) {
                                 toast.success('Product Added Successfully.');
                                 reset();
+                                navigate('/seller/my-products', { replace: true });
                             }
                         })
                         .catch(err => {
@@ -113,7 +116,7 @@ const AddProduct = () => {
                             {...register('brand', { required: 'Select Brand' })}
                         >
                             <option value="">Select Brand</option>
-                            {categories.map((item, index) => <option key={index} value={item?.category}>{item?.category}</option>)}
+                            {brands.map((item, index) => <option key={index} value={item?.brandName}>{item?.brandName}</option>)}
                         </select>
                         {errors?.brand && <small className='text-red-500'>{errors?.brand?.message}</small>}
                     </div>
@@ -123,7 +126,7 @@ const AddProduct = () => {
                         </label>
                         <input
                             type="text"
-                            placeholder="Price"
+                            placeholder="Original Price"
                             id='originalPrice'
                             className="input input-bordered w-full"
                             {...register('originalPrice', { required: 'Enter Original Product Price' })}

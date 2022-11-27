@@ -18,11 +18,11 @@ const SocialLogin = () => {
         signInWithGoogle()
             .then(res => {
                 const user = res?.user;
-                axios.post('http://localhost:5000/used-jwt', { uid: user?.uid })
+                axios.post('https://used-server.vercel.app/used-jwt', { uid: user?.uid })
                     .then(result => {
                         if (result.data?.token) {
                             setCookie('used_access_token', result.data?.token);
-                            axios.post('http://localhost:5000/users', {
+                            axios.post('https://used-server.vercel.app/users', {
                                 displayName: user?.displayName,
                                 email: user?.email,
                                 uid: user?.uid,

@@ -18,7 +18,7 @@ const Advertise = () => {
     const { data: advertiseProducts = [], isLoading } = useQuery({
         queryKey: ['advertiseProducts'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/advertise-product`);
+            const res = await fetch(`https://used-server.vercel.app/advertise-product`);
             const data = await res.json();
             return data;
         }
@@ -30,7 +30,7 @@ const Advertise = () => {
             productID,
             date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
         };
-        axios.post(`http://localhost:5000/wishlist`, wishlist, {
+        axios.post(`https://used-server.vercel.app/wishlist`, wishlist, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`,
             }

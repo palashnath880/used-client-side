@@ -8,7 +8,7 @@ const AdvertiseArea = () => {
     const { data: advertiseItem = [], isLoading } = useQuery({
         queryKey: ['advertiseItem'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/advertise-product`);
+            const res = await fetch(`https://used-server.vercel.app/advertise-product`);
             const data = await res.json();
             return data;
         }
@@ -31,6 +31,7 @@ const AdvertiseArea = () => {
                 <div className='grid grid-cols-3 gap-4'>
                     {advertiseItem.map(product =>
                         <ProductItem
+                            product={product}
                         />
                     )}
                 </div>

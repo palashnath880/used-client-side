@@ -20,7 +20,7 @@ const Brand = () => {
     const { data: brands = [], isLoading, refetch } = useQuery({
         queryKey: ['brands'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/brand`);
+            const res = await fetch(`https://used-server.vercel.app/brand`);
             const data = await res.json();
             return data;
         }
@@ -36,7 +36,7 @@ const Brand = () => {
         setError('');
         setLoading(true);
 
-        axios.post(`http://localhost:5000/brand`, data, {
+        axios.post(`https://used-server.vercel.app/brand`, data, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`
             }
@@ -58,7 +58,7 @@ const Brand = () => {
     }
 
     const handleDeleteBrand = (id) => {
-        axios.delete(`http://localhost:5000/brand/${id}`, {
+        axios.delete(`https://used-server.vercel.app/brand/${id}`, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`
             }

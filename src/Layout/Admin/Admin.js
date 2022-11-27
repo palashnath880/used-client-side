@@ -22,6 +22,7 @@ const Admin = () => {
                         <li><NavLink to='/admin/category'>Category</NavLink></li>
                         <li><NavLink to='/admin/brand'>Brand</NavLink></li>
                         <li><NavLink to='/admin/products'>All Product</NavLink></li>
+                        <li><NavLink to='/admin/report-products'>Report Items</NavLink></li>
                     </ul>
                 </div>
             </div>

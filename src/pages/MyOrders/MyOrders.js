@@ -14,7 +14,7 @@ const MyOrders = () => {
             if (!user?.uid) {
                 return [];
             }
-            const res = await fetch(`http://localhost:5000/my-orders/${user?.uid}`, {
+            const res = await fetch(`https://used-server.vercel.app/my-orders/${user?.uid}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,
                 }
@@ -28,6 +28,7 @@ const MyOrders = () => {
         <div className='container mx-auto px-5 py-10'>
             <h1 className='text-2xl border-b pb-3 pl-3 font-semibold'>My Orders</h1>
             <div className='mt-5'>
+                {myOrders.length <= 0 && <p className='text-center font-semibold py-3 rounded-md bg-red-100 text-red-500'>No Orders</p>}
                 {myOrders.map((order) =>
                     <div key={order?._id} className='mb-3 shadow-lg border border-gray-300 rounded-md p-3'>
                         <div className='flex'>

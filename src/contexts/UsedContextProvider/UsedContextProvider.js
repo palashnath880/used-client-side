@@ -16,7 +16,7 @@ const UsedContextProvider = ({ children }) => {
             if (!user?.uid || !cookies?.used_access_token) {
                 return [];
             }
-            const res = await fetch(`http://localhost:5000/wishlist/${user?.uid}`, {
+            const res = await fetch(`https://used-server.vercel.app/wishlist/${user?.uid}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,
                 }
@@ -29,7 +29,7 @@ const UsedContextProvider = ({ children }) => {
     const { data: categories = [] } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/categories`);
+            const res = await fetch(`https://used-server.vercel.app/categories`);
             const data = await res.json();
             return data;
         }

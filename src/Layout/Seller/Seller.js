@@ -15,7 +15,7 @@ const Seller = () => {
                 </div>
                 <div className="drawer-side border rounded-md sticky top-0">
                     <label htmlFor="sellerDrawer" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-100 text-base-content">
+                    <ul className="menu p-4 w-56 z-auto text-base-content">
                         <li className='mb-2'><NavLink to='/seller/my-products'>All Products</NavLink></li>
                         <li className='mb-2'><NavLink to='/seller/add-product'>Add Product</NavLink></li>
                     </ul>

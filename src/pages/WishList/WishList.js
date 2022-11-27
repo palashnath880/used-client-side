@@ -14,7 +14,7 @@ const WishList = () => {
     const [cookies] = useCookies(['used_access_token']);
 
     const deleteWishList = (id) => {
-        axios.delete(`http://localhost:5000/wishlist/${user?.uid}/${id}`, {
+        axios.delete(`https://used-server.vercel.app/wishlist/${user?.uid}/${id}`, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`,
             }

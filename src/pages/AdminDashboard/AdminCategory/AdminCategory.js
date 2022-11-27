@@ -20,7 +20,7 @@ const AdminCategory = () => {
     const { data: categories = [], isLoading, refetch } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/categories`);
+            const res = await fetch(`https://used-server.vercel.app/categories`);
             const data = await res.json();
             return data;
         }
@@ -42,7 +42,7 @@ const AdminCategory = () => {
             .then((res) => {
                 if (res.data?.success) {
                     data.thumbnail = res?.data?.data?.url;
-                    axios.post(`http://localhost:5000/category`, data)
+                    axios.post(`https://used-server.vercel.app/category`, data)
                         .then((response) => {
                             setLoading(false);
                             if (response.data?.status == 'bad') {
@@ -66,7 +66,7 @@ const AdminCategory = () => {
     }
 
     const handleDeleteCategory = (id) => {
-        axios.delete(`http://localhost:5000/category/${id}`, {
+        axios.delete(`https://used-server.vercel.app/category/${id}`, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`
             }

@@ -47,7 +47,7 @@ const AllUsers = () => {
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['all-users', filterRole],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/all-users/?role=${filterRole}`, {
+            const res = await fetch(`https://used-server.vercel.app/all-users/?role=${filterRole}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`
                 }
@@ -58,7 +58,7 @@ const AllUsers = () => {
     });
 
     const handleVerified = (id, verified) => {
-        axios.put(`http://localhost:5000/all-users/${id}`, { verified }, {
+        axios.put(`https://used-server.vercel.app/all-users/${id}`, { verified }, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`
             }
