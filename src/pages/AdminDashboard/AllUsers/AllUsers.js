@@ -9,7 +9,7 @@ import Loader from '../../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 
 const UsersItem = ({ user, serial, handleVerified, handleDeleteUser }) => {
-    const { uid, displayName, photoURL, email, role, verified } = user;
+    const { uid, displayName, photoURL, email, role, verified, date } = user;
     const { user: currentUser } = useContext(UserContext);
     return (
         <tr>
@@ -30,7 +30,7 @@ const UsersItem = ({ user, serial, handleVerified, handleDeleteUser }) => {
             <td>
                 {email}
             </td>
-            <td>Purple</td>
+            <td>{date && new Date(date).toLocaleDateString()}</td>
             <td>{verified ?
                 <CheckCircleIcon onClick={() => handleVerified(uid, false)} className='w-6 h-6 text-blue-500 cursor-pointer' /> :
                 <CheckCircleIcon onClick={() => handleVerified(uid, true)} className='w-6 h-6 cursor-pointer' />}</td>
@@ -85,7 +85,7 @@ const AllUsers = () => {
     }
 
     const handleDeleteUser = (deletedUser) => {
-        axios.delete(`http://localhost:5000/user/${deletedUser?.uid}`, {
+        axios.delete(`https://used-server.vercel.app/user/${deletedUser?.uid}`, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`,
                 admin_uid: user?.uid,

@@ -4,6 +4,7 @@ import { UserContext } from '../../contexts/UserContextProvider/UserContextProvi
 import { useCookies } from 'react-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { format } from 'date-fns';
 
 const SocialLogin = () => {
 
@@ -27,7 +28,8 @@ const SocialLogin = () => {
                                 email: user?.email,
                                 uid: user?.uid,
                                 photoURL: user?.photoURL,
-                                role: 'Buyer'
+                                role: 'Buyer',
+                                date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`
                             })
                                 .then(() => {
                                     navigate(pathName, { replace: true });

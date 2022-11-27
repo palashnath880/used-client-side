@@ -5,6 +5,7 @@ import axios from 'axios';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const SignUp = () => {
 
@@ -26,7 +27,8 @@ const SignUp = () => {
                     email: user?.email,
                     uid: user?.uid,
                     photoURL: user?.photoURL,
-                    role: data?.user_role
+                    role: data?.user_role,
+                    date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`
                 })
                     .then(() => {
                         axios.post('https://used-server.vercel.app/used-jwt', { uid: user?.uid })

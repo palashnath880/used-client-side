@@ -45,6 +45,7 @@ const UserContextProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser !== null) {
+                setUser(currentUser);
                 const res = await fetch(`https://used-server.vercel.app/users/${currentUser?.uid}`);
                 const data = await res.json();
                 setUser({ ...currentUser, ...data });
