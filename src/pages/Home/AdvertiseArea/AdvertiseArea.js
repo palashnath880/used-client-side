@@ -31,6 +31,7 @@ const AdvertiseArea = () => {
                 <div className='grid grid-cols-3 gap-4'>
                     {advertiseItem.map(product =>
                         <ProductItem
+                            key={product?._id}
                             product={product}
                         />
                     )}

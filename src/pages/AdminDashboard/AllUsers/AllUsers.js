@@ -6,9 +6,11 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Loader from '../../../components/Loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const UsersItem = ({ user, serial, handleVerified, handleDeleteUser }) => {
     const { uid, displayName, photoURL, email, role, verified } = user;
+    const { user: currentUser } = useContext(UserContext);
     return (
         <tr>
             <th>{serial}</th>
@@ -33,16 +35,19 @@ const UsersItem = ({ user, serial, handleVerified, handleDeleteUser }) => {
                 <CheckCircleIcon onClick={() => handleVerified(uid, false)} className='w-6 h-6 text-blue-500 cursor-pointer' /> :
                 <CheckCircleIcon onClick={() => handleVerified(uid, true)} className='w-6 h-6 cursor-pointer' />}</td>
             <th>
-                <button onClick={() => handleDeleteUser(uid)} className="btn btn-ghost btn-xs">Delete</button>
+                {role !== 'Admin' && uid !== currentUser?.uid && <label htmlFor="userDeleteModal" onClick={() => handleDeleteUser(user)} className="btn btn-error btn-xs">Delete</label>}
             </th>
-        </tr>
+        </tr >
     );
 }
 
 const AllUsers = () => {
 
-    const [cookies] = useCookies(['used_access_token']);
+    const [cookies, setCookie, removeCookie] = useCookies(['used_access_token']);
     const [filterRole, setFilterRole] = useState('');
+    const [confirmModal, setConfirmModal] = useState(null);
+    const { user, logOut } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['all-users', filterRole],
@@ -71,8 +76,33 @@ const AllUsers = () => {
             });
     }
 
-    const handleDeleteUser = (uid) => {
+    const logoutHandler = () => {
+        logOut()
+            .then(() => {
+                removeCookie('used_access_token');
+                navigate('/login');
+            });
+    }
 
+    const handleDeleteUser = (deletedUser) => {
+        axios.delete(`http://localhost:5000/user/${deletedUser?.uid}`, {
+            headers: {
+                authorization: `bearer ${cookies?.used_access_token}`,
+                admin_uid: user?.uid,
+            }
+        })
+            .then(() => {
+                toast.success(`${deletedUser?.displayName} deleted successfully.`);
+                refetch();
+                setConfirmModal(null);
+            })
+            .catch((err) => {
+                const errorCode = err.response?.status;
+                if (errorCode) {
+                    toast.error("Your Access Token Is Expired. Login and come back.");
+                    logoutHandler();
+                }
+            });
     }
 
     return (
@@ -110,7 +140,7 @@ const AllUsers = () => {
                                             user={user}
                                             serial={index + 1}
                                             handleVerified={handleVerified}
-                                            handleDeleteUser={handleDeleteUser}
+                                            handleDeleteUser={setConfirmModal}
                                         />
                                     )
                                 }
@@ -122,6 +152,19 @@ const AllUsers = () => {
                 </div>
                 }
             </div>
+            {/* Delete Confirm Modal */}
+            {confirmModal && <>
+                <input type="checkbox" id="userDeleteModal" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box relative">
+                        <h3 className="text-xl font-bold text-center">Are you sure delete {confirmModal?.displayName}</h3>
+                        <div className='mt-3 flex justify-center gap-2'>
+                            <label htmlFor="" onClick={() => handleDeleteUser(confirmModal)} className="btn text-slate-50 btn-success">Yes</label>
+                            <label htmlFor="userDeleteModal" onClick={() => setConfirmModal(null)} className="btn text-slate-50 btn-error">No</label>
+                        </div>
+                    </div>
+                </div>
+            </>}
         </div>
     );
 }
