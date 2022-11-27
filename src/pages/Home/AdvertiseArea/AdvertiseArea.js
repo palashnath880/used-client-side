@@ -66,7 +66,7 @@ const AdvertiseArea = () => {
                 <h1 className='text-center text-3xl '>Advertise Items</h1>
             </div>
             <div className='mt-5'>
-                <div className='grid grid:cols-1 lg:grid-cols-3 gap-4'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                     {advertiseItem.map(product =>
                         <ProductItem
                             key={product?._id}

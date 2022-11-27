@@ -12,7 +12,7 @@ const CategoriesArea = () => {
                 <h1 className='text-center text-3xl'>Categories</h1>
             </div>
             <div className='mt-5'>
-                <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                     {categories.map((category, index) =>
                         <Link to={`/category/${category?.value}`} key={index}>
                             <div className='rounded-lg overflow-hidden relative group'>

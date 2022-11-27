@@ -64,7 +64,7 @@ const Category = () => {
                 {!isLoading &&
                     <>
                         {products.length <= 0 && <p className='text-center font-semibold py-3 rounded-md bg-red-100 text-red-500'>Not Found</p>}
-                        <div className='grid grid-cols-3 gap-4'>
+                        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
                             {products.map((product, index) =>
                                 <ProductItem
                                     key={index}

@@ -14,7 +14,7 @@ const Footer = () => {
     return (
         <footer className='bg-gray-700 pt-10'>
             <div className='container mx-auto px-5'>
-                <div className='grid grid-cols-1 lg:grid-cols-3 pb-5'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pb-5'>
                     <div className='text-slate-50 py-5'>
                         <h2 className='text-xl font-semibold'>Download Our App</h2>
                         <div className='flex items-center gap-2 mt-2'>
@@ -66,8 +66,8 @@ const Footer = () => {
                 </div>
             </div>
             <div className='container mx-auto px-5 border-t border-t-slate-500 '>
-                <div className='py-5 text-slate-50 flex flex-col lg:flex-row items-center justify-between'>
-                    <p className='text-center py-2 lg:py-0'>Copyright © | Develop By <a target="_blank" href='https://github.com/palashnath880'>Palash</a></p>
+                <div className='py-5 text-slate-50 flex flex-col md:flex-row items-center justify-between'>
+                    <p className='text-center py-2 md:py-0'>Copyright © | Develop By <a target="_blank" href='https://github.com/palashnath880'>Palash</a></p>
                     <Link to='/' className='text-lg font-semibold'>Used</Link>
                 </div>
             </div>

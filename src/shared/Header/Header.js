@@ -25,7 +25,7 @@ const Header = () => {
     return (
         <header className='shadow-lg '>
             <div className="navbar container justify-between mx-auto relative">
-                <button onClick={() => setMenuOpen(!menuOpen)}>
+                <button className='block lg:hidden' onClick={() => setMenuOpen(!menuOpen)}>
                     <Bars3Icon className='h-6 w-6' />
                 </button>
                 <div className="lg:flex-1">
@@ -34,7 +34,7 @@ const Header = () => {
                     </Link>
                 </div>
                 <div className={`flex-none ${menuOpen ? 'block w-full z-50 absolute bg-base-100 py-5' : 'hidden'} lg:block lg:static lg:bg-transparent lg:py-0 lg:w-auto top-full right-0 `}>
-                    <div className="">
+                    <div className="lg:flex">
                         <ul tabIndex={0} className="menu lg:menu-horizontal px-2">
                             <li className='mr-1'><NavLink to='/'>Home</NavLink></li>
                             <li className='mr-1'><NavLink to='/cars'>Cars</NavLink></li>
@@ -45,15 +45,15 @@ const Header = () => {
                             {user !== null && user?.role === 'Admin' && <li className='mr-1'><Link to={'/admin/dashboard'}>Dashboard</Link></li>}
                             {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/dashboard'}>Dashboard</Link></li>}
                         </ul>
+                        {user !== null && <div className="hidden lg:inline-block mr-2">
+                            <Link to='/wishlist' className="btn btn-ghost btn-circle" title='Wish List'>
+                                <div className="indicator">
+                                    <HeartIcon className='w-6 h-6' />
+                                    <span className="badge badge-sm indicator-item">{wishListProducts.length || 0}</span>
+                                </div>
+                            </Link>
+                        </div>}
                     </div>
-                    {user !== null && <div className="dropdown dropdown-end mr-2">
-                        <Link to='/wishlist' className="btn btn-ghost btn-circle hidden lg:block" title='Wish List'>
-                            <div className="indicator">
-                                <HeartIcon className='w-6 h-6' />
-                                <span className="badge badge-sm indicator-item">{wishListProducts.length || 0}</span>
-                            </div>
-                        </Link>
-                    </div>}
                 </div>
                 <div className="dropdown dropdown-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
