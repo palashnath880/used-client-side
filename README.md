@@ -11,7 +11,7 @@ Used Cars Sell Website..
 * Upload product details as a seller.
 * Stripe payment gateway added.
 
-Admin Email: admin@gmail.com
-Admin Password: 12Pa&6
+###### Admin Email: admin@gmail.com
+###### Admin Password: 12Pa&6
 
 `Thank You`
