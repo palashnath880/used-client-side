@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import app from '../../firebase/__firebase.config';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 export const UserContext = createContext();
 
@@ -42,14 +43,25 @@ const UserContextProvider = ({ children }) => {
             })
     }
 
+    const { data, refetch } = useQuery({
+        queryKey: ['loadUser', user],
+        queryFn: async () => {
+            if (user === null) {
+                return null;
+            }
+            const res = await fetch(`https://used-server.vercel.app/users/${user?.uid}`);
+            const data = await res.json();
+            setUser({ ...user, ...data });
+            return data;
+        }
+    });
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            setUser(currentUser);
             if (currentUser !== null) {
-                setUser(currentUser);
-                const res = await fetch(`https://used-server.vercel.app/users/${currentUser?.uid}`);
-                const data = await res.json();
-                setUser({ ...currentUser, ...data });
                 createJWT(currentUser?.uid);
+                refetch();
             } else {
                 setUser(currentUser);
                 setLoading(false);

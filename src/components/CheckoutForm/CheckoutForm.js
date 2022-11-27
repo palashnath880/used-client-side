@@ -4,17 +4,15 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvider';
+import { useCookies } from 'react-cookie';
 
-const CheckoutForm = ({ checkoutProduct }) => {
+const CheckoutForm = ({ order, paymentComplete }) => {
 
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState("");
     const [loading, setLoading] = useState(false);
-    const [paymentSuccess, setPaymentSuccess] = useState(false);
     const { user } = useContext(UserContext);
-    const { wishListRefetch } = useContext(UsedContext);
+    const [cookies] = useCookies(['used_access_token']);
 
     const stripe = useStripe();
     const elements = useElements();
@@ -62,23 +60,23 @@ const CheckoutForm = ({ checkoutProduct }) => {
         }
 
         if (paymentIntent.status === "succeeded") {
-            const orders = {
+            const paymentData = {
                 paymentMethod: paymentIntent?.payment_method_types,
                 transitionID: paymentIntent?.id,
-                productID: checkoutProduct?._id,
-                productAuthor: checkoutProduct?.authorID,
-                customer_name: user?.displayName,
-                customer_email: user?.email,
-                customer_id: user?.uid,
-                date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
+                payment: true,
+                paymentDate: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
             }
-            axios.post(`https://used-server.vercel.app/orders`, orders)
+            axios.patch(`http://localhost:5000/orders/${order?._id}/${order?.productID}`, paymentData, {
+                headers: {
+                    authorization: `bearer ${cookies?.used_access_token}`,
+                    customer_id: user?.uid,
+                }
+            })
                 .then(res => {
                     if (res?.data?.acknowledged) {
                         toast.success('Your Payment Successfully.');
                         setLoading(false);
-                        setPaymentSuccess(true);
-                        wishListRefetch();
+                        paymentComplete(null);
                     }
                 })
                 .catch(err => console.error(err));
@@ -91,7 +89,7 @@ const CheckoutForm = ({ checkoutProduct }) => {
         fetch("https://used-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ price: 100 }),
+            body: JSON.stringify({ price: order?.product?.sellPrice }),
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
@@ -117,30 +115,19 @@ const CheckoutForm = ({ checkoutProduct }) => {
                         <label className="label pb-0">
                             <span className="label-text">Product Name</span>
                         </label>
-                        <input type='text' className='input-sm w-full focus:outline-0 py-2' defaultValue={checkoutProduct?.product_name} readOnly />
+                        <input type='text' className='input-sm w-full focus:outline-0 py-2' defaultValue={order?.product?.product_name} readOnly />
                     </div>
                     <div className="form-control border border-gray-300 mb-3 rounded-lg overflow-hidden">
                         <label className="label pb-0">
                             <span className="label-text">Product Price</span>
                         </label>
-                        <input type='text' className='input-sm w-full focus:outline-0 py-2' defaultValue={checkoutProduct?.price} readOnly />
+                        <input type='text' className='input-sm w-full focus:outline-0 py-2' defaultValue={`$ ${order?.product?.sellPrice}`} readOnly />
                     </div>
                 </div>
                 <CardElement className='border border-gray-300 py-3 px-3 rounded-md' />
                 <small className='text-red-500 my-3'>{cardError}</small>
                 <button disabled={!stripe || loading} className='btn btn-primary mt-4'>Payment</button>
             </form>
-            {/* payment success modal */}
-            {paymentSuccess && <div className='fixed top-0 right-0 w-full h-screen' style={{ background: 'linear-gradient(#00000050, #00000050)' }}>
-                <div className='h-full w-full flex justify-center items-center'>
-                    <div className='p-5 rounded-lg bg-base-100 text-center min-w-[300px]'>
-                        <h2 className='font-semibold text-xl'>Your Payment Successfully.</h2>
-                        <p className='mb-5 font-semibold'>Please continue buy product.</p>
-                        <Link className='btn-primary py-2 px-4' to='/products'>Go To Product Page</Link>
-                    </div>
-                </div>
-            </div>
-            }
         </>
     )
 };

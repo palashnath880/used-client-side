@@ -1,20 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import CheckOut from '../CheckOut/CheckOut';
 
 const MyOrders = () => {
 
     const { user } = useContext(UserContext);
     const [cookies] = useCookies(['used_access_token']);
+    const [payment, setPayment] = useState(null);
 
-    const { data: myOrders = [] } = useQuery({
+    const { data: myOrders = [], refetch } = useQuery({
         queryKey: ['myOrders'],
         queryFn: async () => {
             if (!user?.uid) {
                 return [];
             }
-            const res = await fetch(`https://used-server.vercel.app/my-orders/${user?.uid}`, {
+            const res = await fetch(`http://localhost:5000/orders/${user?.uid}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,
                 }
@@ -37,21 +39,50 @@ const MyOrders = () => {
                             </div>
                             <div className='flex-1 px-4'>
                                 <h1 className='text-xl font-semibold'>{order?.product?.product_name}</h1>
-                                <p>{order?.product?.description}</p>
-                                <p className='font-semibold'><span className='text-xl mr-1'>&#2547;</span>{order?.product?.price}</p>
+                                <p className='text-sm'>{order?.product?.description.slice(0, 200)}</p>
+                                <p className='font-semibold'>${order?.product?.sellPrice}</p>
                                 <div className='my-2'>
                                     <div className="badge badge-outline mr-1">{order?.product?.category}</div>
+                                    <div className="badge badge-outline mr-1">{order?.product?.brand}</div>
                                     <div className="badge badge-outline mr-1">{order?.product?.condition}</div>
                                     <div className="badge badge-outline mr-1">{order?.product?.location}</div>
+                                    <div className="badge badge-outline mr-1">{order?.product?.mobile}</div>
                                 </div>
-                                <p className='font-semibold text-sm'>Order Date: {order?.date}</p>
+                                <p className='font-semibold text-sm'>Meeting Location: {order?.meetLocation}</p>
+                                <p className='font-semibold text-sm flex gap-2'>
+                                    <span className=''>Booking Date: {order?.bookingDate}</span>
+                                    {order?.payment && <span>| Payment Date: {order?.paymentDate}</span>}
+                                </p>
+                            </div>
+                            <div className='flex justify-center items-center'>
+                                {
+                                    order?.product?.sell ?
+                                        (order?.payment ? <span className='badge badge-outline'>Paid</span> :
+                                            <span className='badge badge-outline'>Sold</span>) :
+                                        (!order?.payment && <label onClick={() => setPayment(order)} htmlFor="paymentModal" className="btn btn-primary btn-sm">Pay</label>)
+                                }
                             </div>
                         </div>
                     </div>
                 )}
-
+                {/* Payment Modal */}
+                {payment !== null && <>
+                    <input type="checkbox" id="paymentModal" className="modal-toggle" />
+                    <div className="modal">
+                        <div className="modal-box relative">
+                            <label htmlFor="paymentModal" onClick={() => setPayment(null)} className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                            <CheckOut
+                                order={payment}
+                                paymentComplete={() => {
+                                    refetch();
+                                    setPayment(null);
+                                }}
+                            />
+                        </div>
+                    </div>
+                </>}
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { HeartIcon, ShoppingCartIcon, ArrowRightIcon, } from '@heroicons/react/24/outline';
+import { HeartIcon, PlusIcon, ArrowRightIcon, } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
 import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvider';
 
-const ProductItem = ({ product, handleWishList }) => {
+const ProductItem = ({ product, handleWishList, booking }) => {
 
     const { wishListProducts } = useContext(UsedContext);
     const { _id, image, product_name, category, brand, condition, originalPrice, sellPrice, author, location } = product;
@@ -37,9 +37,7 @@ const ProductItem = ({ product, handleWishList }) => {
                     <button disabled={findWishListProduct && true} onClick={() => handleWishList(_id)}>
                         <HeartIcon className='w-6 h-6' fill={findWishListProduct ? "black" : 'transparent'} />
                     </button>
-                    <button>
-                        <ShoppingCartIcon className='w-6 h-6' />
-                    </button>
+                    <label onClick={() => booking(product)} htmlFor="bookingModal" className='cursor-pointer'><PlusIcon className='w-6 h-6' /></label>
                     <Link to={`/products/${_id}`}>
                         <ArrowRightIcon className='w-6 h-6' />
                     </Link>

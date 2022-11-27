@@ -1,9 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import Loader from '../../../components/Loader/Loader';
+import BookingModal from '../../../shared/BookingModal/BookingModal';
 import ProductItem from '../../../shared/ProductItem/ProductItem';
 
 const AdvertiseArea = () => {
+
+    const [booking, setBooking] = useState(null);
 
     const { data: advertiseItem = [], isLoading } = useQuery({
         queryKey: ['advertiseItem'],
@@ -33,10 +36,12 @@ const AdvertiseArea = () => {
                         <ProductItem
                             key={product?._id}
                             product={product}
+                            booking={setBooking}
                         />
                     )}
                 </div>
             </div>
+            {booking && <BookingModal booking={booking} closeModal={setBooking} />}
         </div>
     );
 }
