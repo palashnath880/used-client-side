@@ -56,7 +56,7 @@ const Cars = () => {
             <div className='mt-5'>
                 {isLoading && <div className='py-60'><Loader /></div>}
                 {!isLoading && <div>
-                    <div className='grid grid-cols-3 gap-4'>
+                    <div className='grid lg:grid-cols-3 gap-4'>
                         {products.map((product, index) =>
                             <ProductItem
                                 key={index}

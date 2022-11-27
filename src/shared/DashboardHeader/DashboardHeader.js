@@ -21,18 +21,18 @@ const DashboardHeader = () => {
 
     return (
         <header className='shadow-lg '>
-            <div className="navbar container mx-auto">
-                <div className='flex-1 lg:hidden'>
-                    <label htmlFor="sellerDrawer" className=" cursor-pointer drawer-button lg:hidden">
+            <div className="navbar container mx-auto justify-between">
+                <div className='lg:flex-1 lg:hidden'>
+                    <label htmlFor="dashboard" className="cursor-pointer drawer-button px-3">
                         <Bars3Icon className='w-6 h-6' />
                     </label>
                 </div>
-                <div className="flex-1">
+                <div className="lg:flex-1">
                     <Link to={'/'}>
                         <img className='w-24' src={logo} alt='Logo' />
                     </Link>
                 </div>
-                <div className="flex-none">
+                <div className="lg:flex-none">
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">

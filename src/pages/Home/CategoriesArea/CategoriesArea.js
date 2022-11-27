@@ -12,14 +12,14 @@ const CategoriesArea = () => {
                 <h1 className='text-center text-3xl'>Categories</h1>
             </div>
             <div className='mt-5'>
-                <div className='grid grid-cols-3 gap-6'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                     {categories.map((category, index) =>
                         <Link to={`/category/${category?.value}`} key={index}>
                             <div className='rounded-lg overflow-hidden relative group'>
                                 <div>
                                     <img src={category?.thumbnail} alt={`${category?.category} Category Thumbnail`} />
                                 </div>
-                                <div className='absolute duration-100 top-full group-hover:top-0 right-0 h-full w-full' style={{ background: 'linear-gradient(#00000075, #00000075)' }}>
+                                <div className='absolute duration-100 top-0 lg:top-full group-hover:top-0 right-0 h-full w-full' style={{ background: 'linear-gradient(#00000075, #00000075)' }}>
                                     <div className='h-full w-full flex justify-center items-center'>
                                         <h1 className='text-2xl text-slate-50 font-semibold'>{category?.category}</h1>
                                     </div>
