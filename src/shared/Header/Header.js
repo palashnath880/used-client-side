@@ -20,8 +20,6 @@ const Header = () => {
             .catch(err => console.error(err));
     }
 
-    const totalAmount = Array.isArray(wishListProducts) ? wishListProducts.reduce((prev, next) => prev + parseInt(next?.product?.price), 0) : 0;
-
     return (
         <header className='shadow-lg '>
             <div className="navbar container mx-auto">
@@ -42,23 +40,14 @@ const Header = () => {
                             {user !== null && user?.role === 'Seller' && <li className='mr-1'><Link to={'/seller/dashboard'}>Dashboard</Link></li>}
                         </ul>
                     </div>
-                    <div className="dropdown dropdown-end mr-2">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle">
+                    {user !== null && <div className="dropdown dropdown-end mr-2">
+                        <Link to='/wishlist' className="btn btn-ghost btn-circle" title='Wish List'>
                             <div className="indicator">
                                 <HeartIcon className='w-6 h-6' />
                                 <span className="badge badge-sm indicator-item">{wishListProducts.length || 0}</span>
                             </div>
-                        </label>
-                        <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
-                            <div className="card-body">
-                                <span className="font-bold text-lg">{wishListProducts.length} {wishListProducts.length > 1 ? 'Items' : 'Item'}</span>
-                                <span className="text-info">Subtotal: &#2547;{totalAmount}</span>
-                                <div className="card-actions">
-                                    <Link className="btn btn-primary btn-block capitalize" to='/wishlist'>View Wish List</Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </Link>
+                    </div>}
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">

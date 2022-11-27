@@ -7,7 +7,6 @@ import AllUsers from '../../pages/AdminDashboard/AllUsers/AllUsers';
 import Category from '../../pages/Category/Category';
 import Advertise from '../../pages/Advertise/Advertise/Advertise';
 import Blogs from '../../pages/Blogs/Blogs';
-import CheckOut from '../../pages/CheckOut/CheckOut';
 import Contact from '../../pages/Contact/Contact';
 import FAQ from '../../pages/FAQ/FAQ';
 import Home from '../../pages/Home/Home/Home';
@@ -55,10 +54,6 @@ const Routes = () => {
                 {
                     path: '/wishlist',
                     element: <PrivateRoutes><WishList /></PrivateRoutes>
-                },
-                {
-                    path: '/checkout/:id',
-                    element: <PrivateRoutes><CheckOut /></PrivateRoutes>
                 },
                 {
                     path: '/my-orders',

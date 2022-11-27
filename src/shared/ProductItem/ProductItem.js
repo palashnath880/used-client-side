@@ -43,7 +43,7 @@ const ProductItem = ({ product, handleWishList, booking }) => {
                     </Link>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Loader from '../../../components/Loader/Loader';
 import { useCookies } from 'react-cookie';
 import { format } from 'date-fns'
@@ -8,12 +8,14 @@ import { UserContext } from '../../../contexts/UserContextProvider/UserContextPr
 import { UsedContext } from '../../../contexts/UsedContextProvider/UsedContextProvider';
 import toast from 'react-hot-toast';
 import ProductItem from '../../../shared/ProductItem/ProductItem';
+import BookingModal from '../../../shared/BookingModal/BookingModal';
 
 const Advertise = () => {
 
     const [cookies] = useCookies(['used_access_token']);
     const { user } = useContext(UserContext);
     const { wishListRefetch } = useContext(UsedContext);
+    const [booking, setBooking] = useState(null);
 
     const { data: advertiseProducts = [], isLoading } = useQuery({
         queryKey: ['advertiseProducts'],
@@ -59,9 +61,11 @@ const Advertise = () => {
                             key={product?._id}
                             product={product}
                             handleWishList={handleWishList}
+                            booking={setBooking}
                         />
                     )}
                 </div>
+                {booking && <BookingModal booking={booking} closeModal={setBooking} />}
             </div>
         </div>
     );
