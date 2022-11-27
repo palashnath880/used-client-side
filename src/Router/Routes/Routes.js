@@ -27,6 +27,7 @@ import AdminCategory from '../../pages/AdminDashboard/AdminCategory/AdminCategor
 import SellerDashboard from '../../pages/sellerDashboard/SellerDashboard/SellerDashboard';
 import ReportProducts from '../../pages/AdminDashboard/ReportProducts/ReportProducts';
 import Cars from '../../pages/Cars/Cars';
+import SingleCars from '../../pages/SingleCars/SingleCars';
 
 const Routes = () => {
 
@@ -84,6 +85,11 @@ const Routes = () => {
                 {
                     path: '/cars',
                     element: <Cars />
+
+                },
+                {
+                    path: '/products/:id',
+                    element: <SingleCars />
 
                 }
             ]
