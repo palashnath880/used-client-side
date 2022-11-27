@@ -27,7 +27,7 @@ const BookingModal = ({ closeModal, booking }) => {
             meetLocation: data?.meetLocation,
             bookingDate: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
         }
-        axios.post(`http://localhost:5000/orders`, orders, {
+        axios.post(`https://used-server.vercel.app/orders`, orders, {
             headers: {
                 authorization: `bearer ${cookies?.used_access_token}`,
             }

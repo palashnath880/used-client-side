@@ -16,7 +16,7 @@ const MyOrders = () => {
             if (!user?.uid) {
                 return [];
             }
-            const res = await fetch(`http://localhost:5000/orders/${user?.uid}`, {
+            const res = await fetch(`https://used-server.vercel.app/orders/${user?.uid}`, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,
                 }

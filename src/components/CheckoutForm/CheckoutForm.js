@@ -66,7 +66,7 @@ const CheckoutForm = ({ order, paymentComplete }) => {
                 payment: true,
                 paymentDate: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`,
             }
-            axios.patch(`http://localhost:5000/orders/${order?._id}/${order?.productID}`, paymentData, {
+            axios.patch(`https://used-server.vercel.app/orders/${order?._id}/${order?.productID}`, paymentData, {
                 headers: {
                     authorization: `bearer ${cookies?.used_access_token}`,
                     customer_id: user?.uid,
