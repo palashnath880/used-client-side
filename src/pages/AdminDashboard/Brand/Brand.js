@@ -14,8 +14,7 @@ const Brand = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [cookies] = useCookies(['used_access_token']);
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const imgbbKey = process.env.REACT_APP_IMGBB_KEY;
+    const { register, handleSubmit, formState: { errors, }, reset } = useForm();
 
     const { data: brands = [], isLoading, refetch } = useQuery({
         queryKey: ['brands'],
@@ -48,6 +47,7 @@ const Brand = () => {
                 } else {
                     toast.success('Brand Added Successfully.');
                     setModalOpen(false);
+                    reset();
                     refetch();
                 }
             })

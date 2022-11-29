@@ -14,7 +14,7 @@ const AdminCategory = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [cookies] = useCookies(['used_access_token']);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const imgbbKey = process.env.REACT_APP_IMGBB_KEY;
 
     const { data: categories = [], isLoading, refetch } = useQuery({
@@ -50,6 +50,7 @@ const AdminCategory = () => {
                             } else {
                                 toast.success('Category Added Successfully.');
                                 setModalOpen(false);
+                                reset();
                                 refetch();
                             }
                         })
