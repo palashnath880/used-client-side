@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
 
 const AuthRoutes = ({ children }) => {
-    const { user } = useContext(UserContext);
-
+    const user = useSelector(state => state.user);
     if (user) {
         return <Navigate to={'/'} replace={true} />
     }

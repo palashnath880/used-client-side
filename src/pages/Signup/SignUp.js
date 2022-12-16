@@ -1,44 +1,46 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
-import { useCookies } from 'react-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import { signUp } from '../../firebase/firebase';
+import { CreateJWT } from '../../utilities/utilities';
 
 const SignUp = () => {
 
-    const { createUser } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const [cookies, setCookie] = useCookies(['used_access_token']);
     const { handleSubmit, register, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
-    const handleCreateUser = (data) => {
+    // register user 
+    const handleRegister = (data) => {
         setError('');
         setLoading(true);
-        createUser(data?.email, data?.password)
+        signUp(data?.email, data?.password)
             .then(res => {
                 const user = res?.user;
-                axios.post('https://used-server.vercel.app/users', {
+                const userData = {
                     displayName: data?.name,
                     email: user?.email,
                     uid: user?.uid,
                     photoURL: user?.photoURL,
                     role: data?.user_role,
                     date: `${format(new Date(), 'PP')} ${new Date().toLocaleTimeString()}`
-                })
+                };
+                // insert user in mongodb
+                axios.post('https://used-server.vercel.app/users', userData)
                     .then(() => {
-                        axios.post('https://used-server.vercel.app/used-jwt', { uid: user?.uid })
-                            .then(result => {
-                                setLoading(false);
-                                if (result.data?.token) {
-                                    setCookie('used_access_token', result.data?.token);
-                                }
+                        // create jwt 
+                        CreateJWT(user?.uid, (err) => {
+                            setLoading(false);
+                            if (!err) {
                                 navigate('/');
-                            })
+                            } else {
+                                console.error(err);
+                            }
+                        });
                     })
             })
             .catch(err => {
@@ -54,7 +56,7 @@ const SignUp = () => {
         <div className="hero min-h-screen">
             <div className="hero-content">
                 <div className="max-w-md">
-                    <form onSubmit={handleSubmit(handleCreateUser)} className='border shadow-lg px-4 py-5 rounded-md min-w-[380px] max-w-full'>
+                    <form onSubmit={handleSubmit(handleRegister)} className='border shadow-lg px-4 py-5 rounded-md min-w-[380px] max-w-full'>
                         <h2 className='text-4xl text-center border-b pb-3'>Signup!</h2>
                         <div className='mt-2'>
                             <label className='block mb-1' htmlFor='name'>Full Name</label>

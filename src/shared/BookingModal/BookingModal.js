@@ -4,12 +4,14 @@ import React, { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
-
+import useCookie from '../../hooks/useCookie';
 const BookingModal = ({ closeModal, booking }) => {
+
     const { _id, authorID, product_name, sellPrice } = booking;
-    const { user } = useContext(UserContext);
+
+    const user = useSelector(state => state.user);
     const [loading, setLoading] = useState(false);
     const [cookies] = useCookies(['used_access_token']);
 

@@ -1,22 +1,24 @@
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import toast from 'react-hot-toast';
-import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
+import useCookie from '../../hooks/useCookie';
 
 const CheckoutForm = ({ order, paymentComplete }) => {
 
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState("");
     const [loading, setLoading] = useState(false);
-    const { user } = useContext(UserContext);
-    const [cookies] = useCookies(['used_access_token']);
+
+    const user = useSelector(state => state.user);
+    const { cookies } = useCookie(['used_access_token']);
 
     const stripe = useStripe();
     const elements = useElements();
 
+    // payment handler 
     const handleSubmit = async (event) => {
 
         setCardError('');

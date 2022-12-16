@@ -1,18 +1,20 @@
 import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
-import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
 import { Bars3Icon, HeartIcon } from '@heroicons/react/24/outline';
 import { UsedContext } from '../../contexts/UsedContextProvider/UsedContextProvider';
 import logo from '../../images/logo.png';
+import { useSelector } from 'react-redux';
+import useCookie from '../../hooks/useCookie';
+import { logOut } from '../../firebase/firebase';
 
 const Header = () => {
 
-    const { user, logOut } = useContext(UserContext);
     const { wishListProducts } = useContext(UsedContext);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [cookies, b, removeCookie] = useCookies(['used_access_token']);
+    const { removeCookie } = useCookie(['used_access_token']);
+
+    const user = useSelector(state => state.user);
 
     const handleLogOut = () => {
         logOut()

@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
-import { useCookies } from 'react-cookie';
 import avatar from '../../images/avatar.png';
 import logo from '../../images/logo.png';
 import { Bars3Icon } from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
+import useCookie from '../../hooks/useCookie';
+import { logOut } from '../../firebase/firebase';
 
 const DashboardHeader = () => {
 
-    const { user, logOut } = useContext(UserContext);
-    const [a, b, removeCookie] = useCookies(['used_access_token']);
+    const user = useSelector(state => state.user);
+    const { removeCookie } = useCookie(['used_access_token']);
 
     const handleLogOut = () => {
         logOut()

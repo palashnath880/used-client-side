@@ -1,16 +1,13 @@
-import axios from 'axios';
-import React, { useContext, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContextProvider/UserContextProvider';
+import { login } from '../../firebase/firebase';
 import SocialLogin from '../../shared/SocialLogin/SocialLogin';
+import { CreateJWT } from '../../utilities/utilities';
 
 const Login = () => {
 
-    const { loginUser, loadUserData } = useContext(UserContext);
     const [loading, setLoading] = useState(false);
-    const [cookies, setCookie] = useCookies(['used_access_token']);
     const [error, setError] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -18,26 +15,29 @@ const Login = () => {
     const pathName = location?.state?.from?.pathname || '/';
     const navigate = useNavigate();
 
+    // login handler | login with email and password
     const handleLogin = (data) => {
         setLoading(true);
         setError('');
-        loginUser(data?.email, data?.password)
+        login(data?.email, data?.password)
             .then(res => {
                 const user = res?.user;
-                axios.post('https://used-server.vercel.app/used-jwt', { uid: user?.uid })
-                    .then(result => {
+                //create JSON web token 
+                CreateJWT(user?.uid, (err) => {
+                    if (!err) {
                         setLoading(false);
-                        if (result.data?.token) {
-                            setCookie('used_access_token', result.data?.token);
-                        }
                         navigate(pathName, { replace: true });
-                    })
+                    } else {
+                        console.error(err);
+                    }
+                })
             })
             .catch(err => {
+                // error 
                 setLoading(false);
                 const errorCode = err.code;
                 errorCode === 'auth/wrong-password' && setError('Wrong Password');
-                errorCode === 'auth/user-not-found' && setError('No Users Found');
+                errorCode === 'auth/user-not-found' && setError('User Not Found');
             });
     }
 
